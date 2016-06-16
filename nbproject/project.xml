@@ -6,12 +6,12 @@
             <name>pic18f-sr04-sonar</name>
             <creation-uuid>ec7803bf-c167-4b7c-a3ab-47d43240ce8d</creation-uuid>
             <make-project-type>0</make-project-type>
-            <c-extensions/>
+            <c-extensions>c</c-extensions>
             <cpp-extensions/>
-            <header-extensions/>
+            <header-extensions>h</header-extensions>
             <asminc-extensions/>
-            <make-dep-projects/>
             <sourceEncoding>UTF-8</sourceEncoding>
+            <make-dep-projects/>
         </data>
     </configuration>
 </project>
