@@ -7,6 +7,7 @@
       <itemPath>i2c.h</itemPath>
       <itemPath>test.h</itemPath>
       <itemPath>file.h</itemPath>
+      <itemPath>sonar.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -19,6 +20,7 @@
       <itemPath>test.c</itemPath>
       <itemPath>i2c.c</itemPath>
       <itemPath>file.c</itemPath>
+      <itemPath>sonar.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
