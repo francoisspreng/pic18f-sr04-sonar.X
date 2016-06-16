@@ -13,17 +13,24 @@
 #pragma config WDTEN = OFF     // Watchdog inactif.
 #pragma config LVP = OFF       // Single Supply Enable bits off.
 
-/**
- * Fonction qui transmet un caractère à la EUSART.
- * Il s'agit de l'implémentation d'une fonction système qui est
- * appelée par <code>printf</code>.
- * Cette implémentation envoie le caractère à la UART. Si un terminal
- * est connecté aux sorties RX / TX, il affichera du texte.
- * @param data Le code ASCII du caractère à afficher.
-*/
-void putch(char data) {
-    while( ! TX1IF);
-    TXREG1 = data;
+void low_priority interrupt interruptionsBassePriorite() {
+    
+    if (XXXXIF) {
+        // xxxx
+        XXXXIF = 0;
+    }
+    if (XXXXIF) {
+        // xxxx
+        XXXXIF = 0;
+    }
+    if (XXXXIF) {
+        // xxxx
+        XXXXIF = 0;
+    }
+    if (XXXXIF) {
+        // xxxx
+        XXXXIF = 0;
+    }
 }
 
 /**
@@ -34,7 +41,7 @@ void putch(char data) {
  * - Transmission 8 bits.
  * - Bit de stop activé.
  */
-void initialiseEUSART() {
+void initialiseHardware() {
     // Pour une fréquence de 1MHz, ceci donne 1200 bauds:
     SPBRG = 12;
     SPBRGH = 0;
@@ -49,17 +56,15 @@ void initialiseEUSART() {
     RCSTAbits.SPEN = 1;  // Active la EUSART.
     TXSTAbits.SYNC = 0;  // Mode asynchrone.
     TXSTAbits.TXEN = 1;  // Active l'émetteur.
+    
+    // Active les interruptions:
+    
 }
 
 /**
  * Point d'entrée du programme.
  */
 void main(void) {
-    unsigned char n;
-    
-    initialiseEUSART();
-
-    for (n = 0; n < 100; n++) {
-        printf("v1 Hello world: %d\r\n", n);
-    }
+    initialiseHardware();
+    while (1);
 }
