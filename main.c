@@ -18,12 +18,12 @@
 void low_priority interrupt interruptionsBassePriorite() {
     
     if (PIR1bits.TMR1IF) {
-        TMR1 = 65536 - 464;
+        TMR1 = 65536 - 16000;
         SonarDemmarre();
         PIR1bits.TMR1IF = 0;
     }
     if (PIR2bits.TMR3IF) {
-        TMR3 = 65536 - 16000;
+        TMR3 = 65536 - 464;
         SonarTicTac();
         PIR2bits.TMR3IF = 0;
     }
