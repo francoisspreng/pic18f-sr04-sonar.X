@@ -108,10 +108,10 @@ char etablitEntree(char SonarActif) {
         case 2:
             return PORTAbits.RA2;
                 
-        case 3:
-            return PORTAbits.RA3;
-        }
+        
     }
+    return PORTAbits.RA3;
+}
     
         
             
