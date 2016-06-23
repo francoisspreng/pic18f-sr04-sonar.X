@@ -11,17 +11,21 @@
 // Nécessaires pour ICSP / ICD:
 #pragma config MCLRE = EXTMCLR // RE3 est actif comme master reset.
 #pragma config WDTEN = OFF     // Watchdog inactif.
-#pragma config LVP = OFF       // Single Supply Enable bits off.
+#pragma config LVP = OFF       / / Single Supply Enable bits off.
+
+
 
 void low_priority interrupt interruptionsBassePriorite() {
     
-    if (XXXXIF) {
-        // xxxx
-        XXXXIF = 0;
+    if (PIR1bits.TMR1IF) {
+        TMR1 = 65536 - 464;
+        SonarDemmarre();
+        PIR1bits.TMR1IF = 0;
     }
-    if (XXXXIF) {
-        // xxxx
-        XXXXIF = 0;
+    if (PIR2bits.TMR3IF) {
+        TMR3 = 65536 - 16000;
+        SonarTicTac();
+        PIR2bits.TMR3IF = 0;
     }
     if (XXXXIF) {
         // xxxx
@@ -42,23 +46,44 @@ void low_priority interrupt interruptionsBassePriorite() {
  * - Bit de stop activé.
  */
 void initialiseHardware() {
-    // Pour une fréquence de 1MHz, ceci donne 1200 bauds:
-    SPBRG = 12;
-    SPBRGH = 0;
-    // Configure RC6 et RC7 comme entrées digitales, pour que
-    // la EUSART puisse en prendre le contrôle:
-    TRISCbits.RC6 = 1;
-    TRISCbits.RC7 = 1;
+    // Pour une fréquence de 64MHz
+   
+    OSCCONbits.IRCF = 7;   // Oscillateur interne à 16MHz
+    OSCTUNEbits.PLLEN = 1; // fréquence de sortie multipliée par 4
+   
     
-    // Configure la EUSART:
-    // (BRGH et BRG16 sont à leur valeurs par défaut)
-    // (TX9 est à sa valeur par défaut)
-    RCSTAbits.SPEN = 1;  // Active la EUSART.
-    TXSTAbits.SYNC = 0;  // Mode asynchrone.
-    TXSTAbits.TXEN = 1;  // Active l'émetteur.
+    // Configure RA0 à RA3 comme entrées digitales
+    TRISAbits.RA0 = 1;
+    TRISAbits.RA1 = 1;
+    TRISAbits.RA2 = 1;
+    TRISAbits.RA3 = 1;
+     // Configure RB0 à RB3 comme sortie digitales
+    TRISBbits.RB0 = 0;
+    TRISBbits.RB1 = 0;
+    TRISBbits.RB2 = 0;
+    TRISBbits.RB3 = 0;
+    
+   
+    // Active les tempos TMR1 et TMR3:
+    
+    T1CONbits.TMR1CS = 0;   // source Fosc/4
+    T1CONbits.T1CKPS = 0;   // pas de division de fréquence
+    T1CONbits.T1RD16 = 1;   // accès simultané à TMR1H et TMR1L activé
+    T1CONbits.TMR1ON = 1;   // temporisateur actif
+    
+    T3CONbits.TMR3CS = 0;   // source Fosc/4
+    T3CONbits.T3CKPS = 0;   // pas de division de fréquence
+    T3CONbits.T3RD16 = 1;   // accès simultané à TMR1H et TMR1L activé
+    T3CONbits.TMR3ON = 1;   // temporisateur actif
     
     // Active les interruptions:
+    PIE1bits.TMR1IE = 1;   // interruption active   
+    IPR1bits.TMR1IP = 0;   // priorité basse
+    PIR1bits.TMR1IF = 0;   // drapeau bas
     
+    PIE2bits.TMR3IE = 1;   // interruption active   
+    IPR3bits.TMR3IP = 0;   // priorité basse
+    PIR2bits.TMR3IF = 0;   // drapeau bas
 }
 
 /**

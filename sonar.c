@@ -10,7 +10,6 @@
 #include "file.h"
 #include "test.h"
 
-
 typedef enum {
     PAUSE,
     TRIGGER,
@@ -19,10 +18,17 @@ typedef enum {
 }EtatSonar;
 
 EtatSonar etatSonar = PAUSE;
-unsigned char sonarActif = 0
+int SonarActif = 0;
 
-void demmarre(sonarActif) {
-    sonarActif = n;
+void SonarDemmarre() {
+  
+    EtatSonar = TRIGGER;
+    return;
+}
+
+
+void SonarTicTac() {
+  
     EtatSonar = TRIGGER;
     return;
 }

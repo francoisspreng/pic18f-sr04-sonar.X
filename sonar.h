@@ -1,4 +1,5 @@
 #ifndef SONAR__H
 #define SONAR__H
 
-void demmarre(sonarActif);
+void SonarDemmarre();
+void SonarTicTac();
