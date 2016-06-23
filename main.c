@@ -1,5 +1,6 @@
 #include <xc.h>
 #include <stdio.h>
+#include "sonar.h"
 
 /**
  * Bits de configuration:
@@ -11,30 +12,25 @@
 // Nécessaires pour ICSP / ICD:
 #pragma config MCLRE = EXTMCLR // RE3 est actif comme master reset.
 #pragma config WDTEN = OFF     // Watchdog inactif.
-#pragma config LVP = OFF       / / Single Supply Enable bits off.
+#pragma config LVP = OFF       // Single Supply Enable bits off.
 
 
 
 void low_priority interrupt interruptionsBassePriorite() {
     
     if (PIR1bits.TMR1IF) {
-        TMR1 = 65536 - 16000;
-        SonarDemmarre();
         PIR1bits.TMR1IF = 0;
+        TMR1 = 49536;
+        sonarDemmarre();
+        
     }
     if (PIR2bits.TMR3IF) {
-        TMR3 = 65536 - 464;
-        SonarTicTac();
         PIR2bits.TMR3IF = 0;
+        TMR3 = 65072;
+        sonarTicTac();
+        
     }
-    if (XXXXIF) {
-        // xxxx
-        XXXXIF = 0;
-    }
-    if (XXXXIF) {
-        // xxxx
-        XXXXIF = 0;
-    }
+    
 }
 
 /**
@@ -82,7 +78,7 @@ void initialiseHardware() {
     PIR1bits.TMR1IF = 0;   // drapeau bas
     
     PIE2bits.TMR3IE = 1;   // interruption active   
-    IPR3bits.TMR3IP = 0;   // priorité basse
+    IPR2bits.TMR3IP = 0;   // priorité basse
     PIR2bits.TMR3IF = 0;   // drapeau bas
 }
 

@@ -110,8 +110,9 @@ char etablitEntree(char SonarActif) {
                 
         case 3:
             return PORTAbits.RA3;
-            }
+        }
     }
+    
         
             
     

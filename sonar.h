@@ -1,5 +1,9 @@
 #ifndef SONAR__H
 #define SONAR__H
 
-void SonarDemmarre();
-void SonarTicTac();
+void sonarDemmarre();
+void sonarTicTac();
+void etablitTrigger(char SonarActif, char valeurTrigger);
+char etablitEntree(char SonarActif);
+
+#endif
