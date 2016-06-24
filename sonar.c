@@ -30,7 +30,7 @@ void sonarDemmarre() {
 }
 
 
-void SonarTicTac() {
+void sonarTicTac() {
     if (etatSonar == TRIGGER){
         etablitTrigger( SonarActif, 1);
         etatSonar = ATTENTE;
